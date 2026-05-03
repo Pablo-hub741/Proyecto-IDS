@@ -1,0 +1,9 @@
+FROM ubuntu:22.04
+
+RUN apt update && apt install -y suricata
+
+COPY suricata.yaml /etc/suricata/suricata.yaml
+COPY rules /etc/suricata/rules
+
+CMD ["suricata", "-c", "/etc/suricata/suricata.yaml", "-i", "ens18"]
+

@@ -1,0 +1,33 @@
+#!/bin/bash
+# Pablo Espina García
+# Automatizacion del IDS Suricata
+
+# Título
+echo "=== Gestión automática de Suricata (Docker) ==="
+
+# Definir variable
+CONTAINER="ids-suricata_suricata_1"
+
+# Reiniciar contenedor utilizando la variable
+echo "[+] Reiniciando contenedor Suricata..."
+docker restart $CONTAINER
+
+# Esperar a que arranque
+sleep 2
+
+# Limpiar logs antiguos en el caso de que los haya
+echo "[+] Limpiando fast.log dentro del contenedor..."
+docker exec $CONTAINER sh -c "truncate -s 0 /var/log/suricata/fast.log"
+
+# Mostrar estado del contenedor
+echo "[+] Estado del contenedor:"
+docker ps --filter "name=$CONTAINER"
+
+# Mostrar últimas alertas captadas
+echo "[+] Últimas alertas registradas:"
+docker exec $CONTAINER tail -n 20 /var/log/suricata/fast.log
+
+# Registrar ejecución del contenedor
+echo "$(date) - Script ejecutado" | sudo tee -a /var/log/ids/gestion.log > /dev/null
+
+echo "=== Proceso completado ==="

@@ -1,0 +1,6 @@
+# Detección de Ping Comando: ping 10.2.12.108
+alert icmp any any -> any any (msg:"ICMP detectado - posible reconocimiento"; sid:100001; rev:1;)
+# Deteccion de escaneo de Nmap Comando: nmap -sS 10.2.12.108
+alert tcp any any -> any any (flags:S; msg:"SYN Scan detectado"; sid:100002; rev:1;)
+# Deteccion de User-Agent sospechoso Comandos: sudo nc -l -p 80 (Abrir un listener temporal),  curl -A "sqlmap" http://10.2.12.108
+alert http any any -> any any (msg:"User-Agent SQLMap detectado"; content:"sqlmap"; http_header; sid:100003; rev:1;)
