@@ -1,0 +1,17 @@
+# Detección de Ping Comando: ping 10.2.12.108
+alert icmp any any -> any any (msg:"ICMP detectado - posible reconocimiento"; sid:100001; rev:1;)
+# Deteccion de escaneo de Nmap Comando: nmap -sS 10.2.12.108
+alert tcp any any -> any any (flags:S; msg:"SYN Scan detectado"; sid:100002; rev:1;)
+# Deteccion de User-Agent sospechoso Comandos: sudo nc -l -p 80 (Abrir un listener temporal),  curl -A "sqlmap" http://10.2.12.108
+alert http any any -> any any (msg:"User-Agent SQLMap detectado"; content:"sqlmap"; http_header; sid:100003; rev:1;)
+# Deteccion de posible filtracion de credenciales Comando: curl -d "password=1234" http://127.0.0.1
+alert http any any -> any any (msg:"Posible filtración de credenciales"; content:"password"; http_client_body; sid:100004; rev:1;)
+# Deteccion de DNS extraño Comando: dig <dominio>.com
+alert dns any any -> any any (msg:"DNS sospechoso - dominio demasiado largo"; dns_query; content:".com"; pcre:"/.{40,}\.com$/"; sid:100005; rev:1;)
+# Intento de conexion por SSH Comando: ssh 10.2.12.108
+alert tcp any any -> any 22 (msg:"Intento de conexión SSH detectado"; sid:100006; rev:1;)
+# Acceso a puerto no estandar Comandos: python3 -m http.server 4444 curl http://127.0.0.1:4444
+alert tcp any any -> any !80 (msg:"HTTP en puerto no estándar"; content:"HTTP"; sid:100007; rev:1;)
+# Intento de acceso a /admin Comando: curl http://127.0.0.1/admin
+alert http any any -> any any (msg:"Intento de acceso a /admin";content:"/admin";http_uri;sid:100008;rev:1;)
+

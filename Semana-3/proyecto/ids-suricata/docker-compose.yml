@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  suricata:
+    build:
+      context: .
+      dockerfile: Dockerfile.suricata
+    network_mode: "host"
+    volumes:
+      - ./suricata.yaml:/etc/suricata/suricata.yaml
+      - ./rules:/etc/suricata/rules
+      - ./logs:/var/log/suricata
+
+  procesador:
+    image: python:3.10
+    volumes:
+      - ./logs:/var/log/suricata
+      - ./procesar_alertas.py:/procesar_alertas.py
+      - /home/usuario/ids-suricata/logs:/home/usuario/ids-suricata/logs
+    command: ["python3", "/procesar_alertas.py"]
+
