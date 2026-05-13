@@ -23,7 +23,7 @@ El sistema se compone de:
   Scripts auxiliares para procesar alertas (si aplica)
 
 
-    3. Tecnologías utilizadas
+  3. Tecnologías utilizadas
 
   Suricata 6.x
 
