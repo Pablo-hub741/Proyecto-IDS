@@ -56,7 +56,7 @@ Proyecto-IDS/
 
 5. Despliegue del entorno
    Clonar el repositorio
-   git clone https://github.com/usuario/Proyecto-IDS
+   git clone https://github.com/Pablo-hub741/Proyecto-IDS
 
    Entrar en la versión final:
    cd "Version Final"
@@ -68,6 +68,7 @@ Proyecto-IDS/
    docker logs -f suricata
 
    6. Reglas personalizadas
+
       Las reglas personalizadas se encuentran en:
       Version Final/rules/local.rules
 
@@ -77,7 +78,7 @@ Proyecto-IDS/
       Tráfico ICMP anómalo
       Pruebas de ataque controladas
 
-   7. Pruebas realizadas
+   8. Pruebas realizadas
        Se han ejecutado pruebas para validar:
        Carga correcta de reglas
        Generación de alertas
@@ -85,6 +86,7 @@ Proyecto-IDS/
        Detección de tráfico ICMP
        Detección de patrones HTTP
        Estabilidad del sistema
+      
   8. Problemas detectados y soluciones
      ❌ Suricata no cargaba las reglas
      ✔ Solución: Ajuste de rutas absolutas en suricata.yaml.
@@ -92,6 +94,7 @@ Proyecto-IDS/
      ✔ Solución: Configuración correcta de la interfaz ens18.
      ❌ Reglas no aplicadas
      ✔ Solución: Copia explícita de rules/ en el Dockerfile.
+     
   9. Conclusiones finales
      El proyecto demuestra la capacidad de desplegar un IDS funcional, estable y documentado, capaz de detectar tráfico sospechoso mediante reglas personalizadas.
      La versión final incluye mejoras en estabilidad, organización del repositorio y correcciones en la configuración de Suricata.
