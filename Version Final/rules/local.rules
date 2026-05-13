@@ -1,0 +1,17 @@
+
+alert icmp any any -> any any (msg:"ICMP detectado - posible reconocimiento!"; sid:100001; rev:1;)
+
+alert tcp any any -> any any (flags:S; msg:"SYN Scan detectado!"; sid:100002; rev:1;)
+
+alert http any any -> any any (msg:"User-Agent SQLMap detectado!"; content:"sqlmap"; http_header; sid:100003; rev:1;)
+
+alert http any any -> any any (msg:"Posible filtración de credenciales!"; content:"password"; http_client_body; sid:100004; rev:1;)
+
+alert dns any any -> any any (msg:"DNS sospechoso - dominio demasiado largo!"; dns_query; content:".com"; pcre:"/.{40,}\.com$/"; sid:100005; rev:1;)
+
+alert tcp any any -> any 22 (msg:"Intento de conexión SSH detectado!"; sid:100006; rev:1;)
+
+alert tcp any any -> any !80 (msg:"Acceso al puerto 80 detectado!"; content:"HTTP"; sid:100007; rev:1;)
+
+alert http any any -> any any (msg:"Intento de acceso a /admin!";content:"/admin";http_uri;sid:100008;rev:1;)
+
